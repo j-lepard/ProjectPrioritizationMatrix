@@ -59,7 +59,7 @@ with st.sidebar.form(key='weights_form'):
     submit_button = st.form_submit_button(label='Submit')
 
     if submit_button:
-        if total_weight != 1.0:
+        if total_weight != 0.0:
             st.sidebar.error("The total weight of all variables must not exceed 1.0. Please adjust the weights.")
         else:
             input_variables = {

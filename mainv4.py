@@ -26,36 +26,23 @@ def calculate_project_scores(projects, input_variables):
 # Streamlit app
 st.title("Project Score Calculator")
 
-# Initialize session state for sliders if not already done
-if 'variable1' not in st.session_state:
-    st.session_state['variable1'] = 0.2
-if 'variable2' not in st.session_state:
-    st.session_state['variable2'] = 0.3
-if 'variable3' not in st.session_state:
-    st.session_state['variable3'] = 0.2
-if 'variable4' not in st.session_state:
-    st.session_state['variable4'] = 0.15
-if 'variable5' not in st.session_state:
-    st.session_state['variable5'] = 0.15
-if 'variable6' not in st.session_state:
-    st.session_state['variable6'] = 0.10
-
 # Input sliders for weights
 st.sidebar.header("Adjust Input Variables Weights")
+variable1 = st.sidebar.slider('Strategic Alignment', 0.0, 1.0, 0.2, step=0.1)
+variable2 = st.sidebar.slider('Client Focus and Business Need', 0.0, 1.0, 0.2, step=0.1)
+variable3 = st.sidebar.slider('Risk', 0.0, 1.0, 0.2, step=0.1)
+variable4 = st.sidebar.slider('Scalability', 0.0, 1.0, 0.15, step=0.1)
+variable5 = st.sidebar.slider('Interoperability', 0.0, 1.0, 0.15, step=0.1)
+variable6 = st.sidebar.slider('Project Readiness', 0.0, 1.0, 0.10, step=0.1)
+
+# Calculate the total weight
+total_weight = variable1 + variable2 + variable3 + variable4 + variable5 + variable6
+
+# Display the total weight
+st.sidebar.write(f"Total Weight: {total_weight:.2f}")
+
+# Form submission button
 with st.sidebar.form(key='weights_form'):
-    st.session_state['variable1'] = st.slider('Strategic Alignment', 0.0, 1.0, st.session_state['variable1'], step=0.1)
-    st.session_state['variable2'] = st.slider('Client Focus and Business Need', 0.0, 1.0, st.session_state['variable2'], step=0.1)
-    st.session_state['variable3'] = st.slider('Risk', 0.0, 1.0, st.session_state['variable3'], step=0.1)
-    st.session_state['variable4'] = st.slider('Scalability', 0.0, 1.0, st.session_state['variable4'], step=0.1)
-    st.session_state['variable5'] = st.slider('Interoperability', 0.0, 1.0, st.session_state['variable5'], step=0.1)
-    st.session_state['variable6'] = st.slider('Project Readiness', 0.0, 1.0, st.session_state['variable6'], step=0.1)
-    
-    # Calculate the total weight
-    total_weight = st.session_state['variable1'] + st.session_state['variable2'] + st.session_state['variable3'] + st.session_state['variable4'] + st.session_state['variable5'] + st.session_state['variable6']
-    
-    # Display the total weight
-    st.sidebar.write(f"Total Weight: {total_weight:.2f}")
-    
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
@@ -63,12 +50,12 @@ if submit_button:
         st.sidebar.error("The total weight of all variables must equal 1.0. Please adjust the weights.")
     else:
         input_variables = {
-            'variable1': st.session_state['variable1'],
-            'variable2': st.session_state['variable2'],
-            'variable3': st.session_state['variable3'],
-            'variable4': st.session_state['variable4'],
-            'variable5': st.session_state['variable5'],
-            'variable6': st.session_state['variable6']
+            'variable1': variable1,
+            'variable2': variable2,
+            'variable3': variable3,
+            'variable4': variable4,
+            'variable5': variable5,
+            'variable6': variable6
         }
 
         # Calculate scores for each project and convert to DataFrame
@@ -93,7 +80,7 @@ if submit_button:
         # Compare with previous weights
         original_input_variables = {
             'variable1': 0.2,
-            'variable2': 0.3,
+            'variable2': 0.2,
             'variable3': 0.1,
             'variable4': 0.25,
             'variable5': 0.15,
