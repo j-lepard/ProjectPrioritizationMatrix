@@ -1,5 +1,6 @@
 ## Project Summary: mainv4.py
 
+[LINK to applet on 'Streamlit Community'](https://projectprioritizationmatrix-testing.streamlit.app/)
 
 ### Context
 I was in a meeting in which a new prioritization matrix (project ranking) was introduced. I wanted to understand the approach to the relative weights for each input variable. In other words, "How did we arrive at 20% for variable 1?" Subsequently, I was instereted if we could visualize the sensitivty to ranking change if a weight is revised. I was imagining an end-user (a project lead) potentially 'protesting' that their initiative was not at the top of the list. 
