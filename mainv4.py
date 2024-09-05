@@ -115,15 +115,15 @@ comparison_df = pd.DataFrame.from_dict(comparison, orient='index')
 comparison_df['Original Rank'] = comparison_df['Original'].rank(ascending=False).astype(int)
 comparison_df['New Rank'] = comparison_df['New'].rank(ascending=False).astype(int)
 
+# Add a new column 'Change' that shows "Increase" if New > Original, otherwise "No Change" or "Decrease"
+comparison_df[' Rank Change'] = comparison_df.apply(
+    lambda row: 'Increase' if row['New Rank'] > row['Original Rank'] else ('--' if row['New Rank'] == row['Original Rank'] else 'Decrease'), 
+    axis=1
+)
 
 # Apply the highlight function correctly
-styled_comparison_df = comparison_df.style.apply(
-    lambda x: ['background-color: green' if v > comparison_df.iloc[4, 3] else '' for v in x],
-    subset=['New Rank']
-).set_table_styles(
-    [{'selector': 'th.col0', 'props': [('min-width', '350px')]},  # Adjust the width as needed
-     {'selector': 'td.col0', 'props': [('min-width', '150px')]}]
-)
+styled_comparison_df = comparison_df
+
 
 
 # Display comparison DataFrame
