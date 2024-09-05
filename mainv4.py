@@ -97,19 +97,33 @@ original_input_variables = {
 
 original_scores = calculate_project_scores(projects, original_input_variables)
 
+def highlight_new_greater(val, original_val):
+    color = 'green' if val < original_val else ''
+    return f'background-color: {color}'
+
 # Create comparison DataFrame
+
+#Create Comparison DF
+comparison = {project: {'Original': original_scores[project], 'New': project_scores[project]} for project in projects}
+
+
+#Create Comparison DF
 comparison = {project: {'Original': original_scores[project], 'New': project_scores[project]} for project in projects}
 comparison_df = pd.DataFrame.from_dict(comparison, orient='index')
 
-# Add rank columns
+# Add columns (Rank) to Comparison DF
 comparison_df['Original Rank'] = comparison_df['Original'].rank(ascending=False).astype(int)
 comparison_df['New Rank'] = comparison_df['New'].rank(ascending=False).astype(int)
 
-# Set column width for comparison DataFrame
-styled_comparison_df = comparison_df.style.set_table_styles(
-        [{'selector': 'th.col1', 'props': [('min-width', '600px')]},  # Adjust the width as needed
-         {'selector': 'td.col1', 'props': [('min-width', '300px')]}]
-    )
+
+# Apply the highlight function correctly
+styled_comparison_df = comparison_df.style.apply(
+    lambda x: ['background-color: green' if v > comparison_df.iloc[4, 3] else '' for v in x],
+    subset=['New Rank']
+).set_table_styles(
+    [{'selector': 'th.col0', 'props': [('min-width', '350px')]},  # Adjust the width as needed
+     {'selector': 'td.col0', 'props': [('min-width', '150px')]}]
+)
 
 
 # Display comparison DataFrame
