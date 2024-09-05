@@ -6,6 +6,8 @@ I was in a meeting in which a new prioritization matrix (project ranking) was in
 
 The questions didnt generate the discussion I had hoped... so I figured I would try to build it myself. Below is the result. Turns out it may not be directly 'useful' (as there is a version already published a related and influential organization). No matter, it was an interesting academic exercise. 
 
+![alt text](image.png)![alt text](image-1.png)
+
 ### Overview
 The [`mainv4.py`]script is a Streamlit application designed to calculate and compare project scores based on user-defined weights for various evaluation criteria. The application allows users to adjust the weights of different variables and dynamically see the impact on project rankings.
 
