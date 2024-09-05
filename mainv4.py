@@ -72,12 +72,13 @@ def highlight_top_5(s):
     return ['background-color: {}'.format(color[i]) if i < 5 else '' for i in range(len(s))]
 
 # Apply the styles to the DataFrame
-styled_scores_df = sorted_scores_df.style.apply(highlight_top_5, subset=['Score'])
-
-# Set column width
-styled_scores_df = styled_scores_df.set_table_styles(
-        [{'selector': 'th.col0', 'props': [('min-width', '450px')]},  # Adjust the width as needed
-         {'selector': 'td.col0', 'props': [('min-width', '450px')]}]
+styled_scores_df = (
+        sorted_scores_df.style
+        .apply(highlight_top_5, subset=['Score'])
+        .set_table_styles(
+            [{'selector': 'th.col0', 'props': [('min-width', '450px')]},
+             {'selector': 'td.col0', 'props': [('min-width', '450px')]}]
+        )
     )
 
 # Display scores
