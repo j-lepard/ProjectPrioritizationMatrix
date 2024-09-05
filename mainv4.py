@@ -14,6 +14,9 @@ projects = {
     'Project I': {'variable1': 95, 'variable2': 90, 'variable3': 95, 'variable4': 85, 'variable5': 90, 'variable6': 60},
     'Project J': {'variable1': 55, 'variable2': 65, 'variable3': 60, 'variable4': 70, 'variable5': 75, 'variable6': 50},
 }
+# create a DF for Projects
+# update the intake source in future versions (excel, web, etc)
+project_inputs_df = pd.DataFrame.from_dict(projects, orient='index')
 
 # Function to calculate project scores based on input variables and weights
 def calculate_project_scores(projects, input_variables):
@@ -81,9 +84,7 @@ styled_scores_df = (
         )
     )
 
-# Display scores
-st.header("Project Scores")
-st.dataframe(styled_scores_df)
+
 
 # Compare with previous weights
 original_input_variables = {
@@ -124,7 +125,10 @@ comparison_df[' Rank Change'] = comparison_df.apply(
 # Apply the highlight function correctly
 styled_comparison_df = comparison_df
 
-
+# Display Elements in Body
+st.header("Project Scores")
+st.dataframe(project_inputs_df)
+st.dataframe(styled_scores_df)
 
 # Display comparison DataFrame
 st.header("Comparison with Original Weights")
