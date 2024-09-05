@@ -30,7 +30,7 @@ st.title("Project Score Calculator")
 if 'variable1' not in st.session_state:
     st.session_state['variable1'] = 0.2
 if 'variable2' not in st.session_state:
-    st.session_state['variable2'] = 0.3
+    st.session_state['variable2'] = 0.2
 if 'variable3' not in st.session_state:
     st.session_state['variable3'] = 0.2
 if 'variable4' not in st.session_state:
