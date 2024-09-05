@@ -42,9 +42,9 @@ total_weight= round(total_weight,2)
 # Display the total weight
 st.sidebar.write(f"Total Weight: {total_weight:.2f}")
 
-# Form submission button
-with st.sidebar.form(key='weights_form'):
-    submit_button = st.form_submit_button(label='Submit')
+# # Form submission button
+# with st.sidebar.form(key='weights_form'):
+#     submit_button = st.form_submit_button(label='Submit')
 
 # Ensure total weigh <1:
 if total_weight != 1.0:
@@ -68,11 +68,17 @@ sorted_scores_df = project_scores_df.sort_values(by='Score', ascending=False)
 
 # Define a function to apply the styles
 def highlight_top_5(s):
-    color = ['rgba(0, 255, 0, 1.0)', 'rgba(0, 255, 0, 0.9)', 'rgba(0, 255, 0, 0.8)', 'rgba(0, 255, 0, 0.7)', 'rgba(0, 255, 0, 0.6)']
+    color = ['rgba(49, 148, 36, 1.0)','rgba(60, 181,44, 1.0)','rgba(77, 205, 58, 1.0)','rgba(105, 215, 91, 1.0)','rgba(135, 223, 124, 1.0)']
     return ['background-color: {}'.format(color[i]) if i < 5 else '' for i in range(len(s))]
 
 # Apply the styles to the DataFrame
 styled_scores_df = sorted_scores_df.style.apply(highlight_top_5, subset=['Score'])
+
+# Set column width
+styled_scores_df = styled_scores_df.set_table_styles(
+        [{'selector': 'th.col0', 'props': [('min-width', '450px')]},  # Adjust the width as needed
+         {'selector': 'td.col0', 'props': [('min-width', '450px')]}]
+    )
 
 # Display scores
 st.header("Project Scores")
@@ -98,6 +104,13 @@ comparison_df = pd.DataFrame.from_dict(comparison, orient='index')
 comparison_df['Original Rank'] = comparison_df['Original'].rank(ascending=False).astype(int)
 comparison_df['New Rank'] = comparison_df['New'].rank(ascending=False).astype(int)
 
+# Set column width for comparison DataFrame
+styled_comparison_df = comparison_df.style.set_table_styles(
+        [{'selector': 'th.col1', 'props': [('min-width', '600px')]},  # Adjust the width as needed
+         {'selector': 'td.col1', 'props': [('min-width', '300px')]}]
+    )
+
+
 # Display comparison DataFrame
 st.header("Comparison with Original Weights")
-st.dataframe(comparison_df)
+st.dataframe(styled_comparison_df)
