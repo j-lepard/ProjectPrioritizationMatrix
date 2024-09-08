@@ -45,9 +45,6 @@ total_weight= round(total_weight,2)
 # Display the total weight
 st.sidebar.write(f"Total Weight: {total_weight:.2f}")
 
-# # Form submission button
-# with st.sidebar.form(key='weights_form'):
-#     submit_button = st.form_submit_button(label='Submit')
 
 # Ensure total weigh <1:
 if total_weight != 1.0:
@@ -74,7 +71,7 @@ def highlight_top_5(s):
     color = ['rgba(49, 148, 36, 1.0)','rgba(60, 181,44, 1.0)','rgba(77, 205, 58, 1.0)','rgba(105, 215, 91, 1.0)','rgba(135, 223, 124, 1.0)']
     return ['background-color: {}'.format(color[i]) if i < 5 else '' for i in range(len(s))]
 
-# Apply the styles to the DataFrame
+# Apply styles to the DataFrame
 styled_scores_df = (
         sorted_scores_df.style
         .apply(highlight_top_5, subset=['Score'])
@@ -116,13 +113,13 @@ comparison_df = pd.DataFrame.from_dict(comparison, orient='index')
 comparison_df['Original Rank'] = comparison_df['Original'].rank(ascending=False).astype(int)
 comparison_df['New Rank'] = comparison_df['New'].rank(ascending=False).astype(int)
 
-# Add a new column 'Change' that shows "Increase" if New > Original, otherwise "No Change" or "Decrease"
+# Add a new column 'Change' that shows "Increase" if New > Original, otherwise "--" or "Decrease"
 comparison_df[' Rank Change'] = comparison_df.apply(
     lambda row: 'Increase' if row['New Rank'] > row['Original Rank'] else ('--' if row['New Rank'] == row['Original Rank'] else 'Decrease'), 
     axis=1
 )
 
-# Apply the highlight function correctly
+# Apply the highlight function
 styled_comparison_df = comparison_df
 
 # Display Elements in Body
